@@ -1,11 +1,19 @@
 namespace CvWebsite.Core.Models;
 
 public record ProjectItem(
+    string Slug,
     string Title,
-    string Description,
+    string ShortDescription,
+
+    string Problem,
+    string Solution,
+    string Result,
+
     string Tech,
     string? RepoUrl = null,
-    string? LiveUrl = null);
+    string? LiveUrl = null,
+    string[]? Images = null
+);
 
 public record WorkItem(
     string Company,

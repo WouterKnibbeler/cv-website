@@ -11,6 +11,44 @@
     "Security: OpenID Connect",
     "Kwaliteit: teststrategie & samenwerking"
   ],
-  "projects": [],
-  "work": []
+  "projects": [
+    {
+      "slug": "cv-website",
+      "title": "CV Website (Tweetalig)",
+      "shortDescription": "Persoonlijke CV/portfolio website gebouwd met Blazor WebAssembly met een NL/EN taalkeuze.",
+      "problem": "Ik wilde een professionele online aanwezigheid die laat zien hoe ik onderhoudbare .NET applicaties structureer en waarmee ik mijn ervaring duidelijk kan presenteren in zowel het Nederlands als Engels.",
+      "solution": "Ik heb een Blazor WebAssembly applicatie gebouwd met een duidelijke scheiding tussen UI en core logica. De content wordt geladen uit taalspecifieke JSON-bestanden en de gekozen taal wordt opgeslagen in localStorage.",
+      "result": "Een snelle en onderhoudbare portfolio website die eenvoudig uit te breiden is met nieuwe projecten, diepere case studies en deployment naar Azure met een eigen domein.",
+      "tech": "Blazor WASM, .NET, JSON content, Dependency Injection, Azure Static Web Apps",
+      "repoUrl": "https://github.com/wouterknibbeler/cv-website",
+      "liveUrl": null,
+      "images": []
+    },
+    {
+      "slug": "cv-generator",
+      "title": "CV Generator (Stageproject)",
+      "shortDescription": "Webapplicatie om een CV op te bouwen en te exporteren naar een professioneel PDF-document met QuestPDF.",
+      "problem": "Het handmatig onderhouden van een consistent en professioneel CV kost veel tijd en is foutgevoelig wanneer inhoud regelmatig wijzigt.",
+      "solution": "Ik heb een webgebaseerde CV-generator ontwikkeld waarin gebruikers hun CV-gegevens beheren en een PDF-export genereren via QuestPDF. Authenticatie werd geïmplementeerd met OpenID Connect en gegevens werden opgeslagen in SQL Server.",
+      "result": "Een volledig werkend end-to-end systeem dat full-stack .NET vaardigheden laat zien: UI, authenticatie, data-opslag en documentgeneratie.",
+      "tech": "Blazor, QuestPDF, SQL Server, OpenID Connect",
+      "repoUrl": null,
+      "liveUrl": null,
+      "images": []
+    }
+  ],
+  "work": [
+    {
+      "company": "Ericsson (via VodafoneZiggo), Maastricht",
+      "role": "Test Manager / Quality Engineer (Telecom)",
+      "period": "Februari 2024 – heden",
+      "description": "Verantwoordelijk voor het opstellen en coördineren van teststrategieën en testscenario’s voor mobiele netwerksystemen. Afstemming met engineers en stakeholders over kwaliteitsrisico’s, acceptatiecriteria en oplevering."
+    },
+    {
+      "company": "Etesian, Kerkrade",
+      "role": "Software Engineer (Stage)",
+      "period": "Februari 2023 – Juli 2023",
+      "description": "Ontwikkeling van een webgebaseerd CV-systeem met Blazor. Implementatie van PDF-generatie met QuestPDF, authenticatie via OpenID Connect en data-opslag in SQL Server."
+    }
+  ]
 }

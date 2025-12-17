@@ -3,6 +3,7 @@
 @using CvWebsite.Core.Services
 @inject ICvDataService Cv
 @inject ILanguageService Lang
+@implements IDisposable
 
 @if (Data is null)
 {
@@ -10,25 +11,43 @@
 }
 else
 {
-    <div class="p-4 p-md-5 mb-4 rounded bg-light border">
-        <div class="d-flex justify-content-between align-items-start gap-3">
-            <div>
-                <h1 class="display-6 fw-bold mb-1">@Data.Name</h1>
-                <div class="lead">@Data.Title</div>
-                <div class="text-muted">@Data.Location</div>
-            </div>
-            <LanguageToggle />
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="mb-0">@Data.Nav.Projects</h1>
+        <LanguageToggle />
+    </div>
+
+    @if (Data.Projects is null || Data.Projects.Count == 0)
+    {
+        <p class="text-muted">No projects yet.</p>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var p in Data.Projects)
+            {
+                <div class="col-12 col-md-6">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">@p.Title</h5>
+                            <p class="card-text">@p.ShortDescription</p>
+                            <p class="text-muted small mb-3"><strong>Tech:</strong> @p.Tech</p>
+
+                            <div class="d-flex gap-2">
+                                @if (!string.IsNullOrWhiteSpace(p.RepoUrl))
+                                {
+                                    <a class="btn btn-outline-dark btn-sm" href="@p.RepoUrl" target="_blank">Repo</a>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(p.LiveUrl))
+                                {
+                                    <a class="btn btn-outline-primary btn-sm" href="@p.LiveUrl" target="_blank">Live</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
-
-        <p class="mt-3 mb-0">@Data.Summary</p>
-    </div>
-
-    <div class="d-flex flex-wrap gap-2">
-        @foreach (var h in Data.Highlights)
-        {
-            <span class="badge rounded-pill text-bg-secondary">@h</span>
-        }
-    </div>
+    }
 }
 
 @code {
@@ -46,7 +65,9 @@ else
         await InvokeAsync(StateHasChanged);
     }
 
-    private Task LoadAsync() => Task.Run(async () => Data = await Cv.GetAsync(Lang.Current));
+    private async Task LoadAsync()
+        => Data = await Cv.GetAsync(Lang.Current);
 
-    public void Dispose() => Lang.Changed -= OnLangChanged;
+    public void Dispose()
+        => Lang.Changed -= OnLangChanged;
 }

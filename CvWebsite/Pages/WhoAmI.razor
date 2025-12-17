@@ -46,7 +46,8 @@ else
         await InvokeAsync(StateHasChanged);
     }
 
-    private Task LoadAsync() => Task.Run(async () => Data = await Cv.GetAsync(Lang.Current));
+    private async Task LoadAsync()
+        => Data = await Cv.GetAsync(Lang.Current);
 
     public void Dispose() => Lang.Changed -= OnLangChanged;
 }

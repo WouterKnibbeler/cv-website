@@ -11,6 +11,44 @@
     "Security: OpenID Connect",
     "Quality: test strategy & collaboration"
   ],
-  "projects": [],
-  "work": []
+  "projects": [
+    {
+      "slug": "cv-website",
+      "title": "CV Website (Bilingual)",
+      "shortDescription": "Personal CV/portfolio site built with Blazor WebAssembly with an NL/EN toggle.",
+      "problem": "I wanted a professional online presence that reflects how I structure maintainable .NET applications and makes it easy to present my experience in both Dutch and English.",
+      "solution": "I built a Blazor WebAssembly site with a clean separation between UI and core logic. The content is stored in language-specific JSON files and the chosen language is persisted in localStorage.",
+      "result": "A fast, maintainable portfolio that can easily be extended with more projects, deeper case studies, and deployment to Azure with a custom domain.",
+      "tech": "Blazor WASM, .NET, JSON content, DI, Azure Static Web Apps",
+      "repoUrl": "https://github.com/wouterknibbeler/cv-website",
+      "liveUrl": null,
+      "images": []
+    },
+    {
+      "slug": "cv-generator",
+      "title": "CV Generator (Internship Project)",
+      "shortDescription": "Web app to create a CV and export it to a polished PDF using QuestPDF.",
+      "problem": "Creating a consistent, professional CV layout manually is time-consuming and error-prone, especially when content changes.",
+      "solution": "I built a web-based CV generator where users manage CV data and generate a PDF export via QuestPDF. Authentication used OpenID Connect and data was stored in SQL Server.",
+      "result": "A working end-to-end system that demonstrates full-stack .NET skills: UI, auth, persistence, and document generation.",
+      "tech": "Blazor, QuestPDF, SQL Server, OpenID Connect",
+      "repoUrl": null,
+      "liveUrl": null,
+      "images": []
+    }
+  ],
+  "work": [
+    {
+      "company": "Ericsson (via VodafoneZiggo), Maastricht",
+      "role": "Test Manager / Quality Engineer (Telecom)",
+      "period": "February 2024 – Present",
+      "description": "Responsible for defining and coordinating test strategies and test scenarios for mobile network systems. Worked closely with engineers and stakeholders to align on quality risks, acceptance criteria, and delivery readiness."
+    },
+    {
+      "company": "Etesian, Kerkrade",
+      "role": "Software Engineer Intern",
+      "period": "February 2023 – July 2023",
+      "description": "Developed a web-based CV system using Blazor. Implemented PDF generation with QuestPDF, authentication via OpenID Connect, and data storage in SQL Server."
+    }
+  ]
 }

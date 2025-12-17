@@ -1,4 +1,10 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@using CvWebsite.Core.Models
+@using CvWebsite.Core.Services
+@inject ICvDataService Cv
+@inject ILanguageService Lang
+@implements IDisposable
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">CvWebsite</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -11,34 +17,58 @@
     <nav class="nav flex-column">
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span>
+                @(Data?.Nav.Home ?? "Home")
             </NavLink>
         </div>
+
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="projects">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Projects
+                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span>
+                @(Data?.Nav.Projects ?? "Projects")
             </NavLink>
         </div>
+
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="whoami">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Who am I
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span>
+                @(Data?.Nav.WhoAmI ?? "Who am I")
             </NavLink>
         </div>
+
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="work">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> work
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span>
+                @(Data?.Nav.Work ?? "Work")
             </NavLink>
         </div>
     </nav>
 </div>
 
 @code {
+    private CvData? Data;
     private bool collapseNavMenu = true;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
-    private void ToggleNavMenu()
+    protected override async Task OnInitializedAsync()
     {
-        collapseNavMenu = !collapseNavMenu;
+        Lang.Changed += OnLangChanged;
+        await LoadAsync();
     }
+
+    private async void OnLangChanged()
+    {
+        await LoadAsync();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task LoadAsync()
+        => Data = await Cv.GetAsync(Lang.Current);
+
+    private void ToggleNavMenu()
+        => collapseNavMenu = !collapseNavMenu;
+
+    public void Dispose()
+        => Lang.Changed -= OnLangChanged;
 }

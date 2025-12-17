@@ -3,6 +3,7 @@
 @using CvWebsite.Core.Services
 @inject ICvDataService Cv
 @inject ILanguageService Lang
+@implements IDisposable
 
 @if (Data is null)
 {
@@ -10,25 +11,52 @@
 }
 else
 {
-    <div class="p-4 p-md-5 mb-4 rounded bg-light border">
-        <div class="d-flex justify-content-between align-items-start gap-3">
-            <div>
-                <h1 class="display-6 fw-bold mb-1">@Data.Name</h1>
-                <div class="lead">@Data.Title</div>
-                <div class="text-muted">@Data.Location</div>
-            </div>
-            <LanguageToggle />
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="mb-0">@Data.Nav.Work</h1>
+        <LanguageToggle />
+    </div>
+
+    @if (Data.Work is null || Data.Work.Count == 0)
+    {
+        <p class="text-muted">No work history yet.</p>
+    }
+    else
+    {
+        <div class="accordion shadow-sm" id="workAcc">
+            @{
+                var i = 0;
+                foreach (var w in Data.Work)
+                {
+                    var headingId = $"h{i}";
+                    var collapseId = $"c{i}";
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="@headingId">
+                            <button class="accordion-button @(i == 0 ? "" : "collapsed")"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#@collapseId">
+                                <div>
+                                    <div class="fw-semibold">@w.Role</div>
+                                    <div class="text-muted small">@w.Company • @w.Period</div>
+                                </div>
+                            </button>
+                        </h2>
+
+                        <div id="@collapseId"
+                             class="accordion-collapse collapse @(i == 0 ? "show" : "")"
+                             data-bs-parent="#workAcc">
+                            <div class="accordion-body">
+                                @w.Description
+                            </div>
+                        </div>
+                    </div>
+
+                    i++;
+                }
+            }
         </div>
-
-        <p class="mt-3 mb-0">@Data.Summary</p>
-    </div>
-
-    <div class="d-flex flex-wrap gap-2">
-        @foreach (var h in Data.Highlights)
-        {
-            <span class="badge rounded-pill text-bg-secondary">@h</span>
-        }
-    </div>
+    }
 }
 
 @code {
@@ -46,7 +74,9 @@ else
         await InvokeAsync(StateHasChanged);
     }
 
-    private Task LoadAsync() => Task.Run(async () => Data = await Cv.GetAsync(Lang.Current));
+    private async Task LoadAsync()
+        => Data = await Cv.GetAsync(Lang.Current);
 
-    public void Dispose() => Lang.Changed -= OnLangChanged;
+    public void Dispose()
+        => Lang.Changed -= OnLangChanged;
 }
