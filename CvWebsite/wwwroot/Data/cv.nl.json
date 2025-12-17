@@ -1,0 +1,16 @@
+{
+  "name": "Wouter Knibbeler",
+  "title": "Software Engineer (.NET / Blazor)",
+  "location": "Heerlen, NL",
+  "summary": "Ik bouw betrouwbare .NET applicaties met focus op duidelijke doelen, kwaliteit en onderhoudbaarheid.",
+  "nav": { "home": "Home", "whoAmI": "Wie ben ik", "projects": "Projecten", "work": "Werkervaring" },
+  "highlights": [
+    "C# / .NET / ASP.NET Core",
+    "Blazor (WASM/Server)",
+    "SQL Server + API’s",
+    "Security: OpenID Connect",
+    "Kwaliteit: teststrategie & samenwerking"
+  ],
+  "projects": [],
+  "work": []
+}

@@ -1,0 +1,13 @@
+@using CvWebsite.Core.Services
+@inject ILanguageService Lang
+
+<div class="btn-group btn-group-sm" role="group" aria-label="Language toggle">
+    <button class="btn @(Lang.Current == SiteLanguage.Nl ? "btn-primary" : "btn-outline-primary")"
+            @onclick="() => Lang.SetAsync(SiteLanguage.Nl)">
+        NL
+    </button>
+    <button class="btn @(Lang.Current == SiteLanguage.En ? "btn-primary" : "btn-outline-primary")"
+            @onclick="() => Lang.SetAsync(SiteLanguage.En)">
+        EN
+    </button>
+</div>

@@ -1,0 +1,6 @@
+@inject CvWebsite.Core.Services.ILanguageService Lang
+
+@code {
+    protected override async Task OnInitializedAsync()
+        => await Lang.InitializeAsync();
+}

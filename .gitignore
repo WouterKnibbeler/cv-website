@@ -1,0 +1,23 @@
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# JetBrains Rider / IntelliJ
+.idea/
+*.sln.iml
+
+# User-specific
+*.user
+*.suo
+
+# .NET
+bin/
+obj/
+
+# Logs
+*.log
+
+# Local secrets
+appsettings.*.json
+!appsettings.json

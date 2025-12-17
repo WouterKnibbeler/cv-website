@@ -1,0 +1,52 @@
+﻿@page "/"
+@using CvWebsite.Core.Models
+@using CvWebsite.Core.Services
+@inject ICvDataService Cv
+@inject ILanguageService Lang
+
+@if (Data is null)
+{
+    <p>Loading…</p>
+}
+else
+{
+    <div class="p-4 p-md-5 mb-4 rounded bg-light border">
+        <div class="d-flex justify-content-between align-items-start gap-3">
+            <div>
+                <h1 class="display-6 fw-bold mb-1">@Data.Name</h1>
+                <div class="lead">@Data.Title</div>
+                <div class="text-muted">@Data.Location</div>
+            </div>
+            <LanguageToggle />
+        </div>
+
+        <p class="mt-3 mb-0">@Data.Summary</p>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2">
+        @foreach (var h in Data.Highlights)
+        {
+            <span class="badge rounded-pill text-bg-secondary">@h</span>
+        }
+    </div>
+}
+
+@code {
+    private CvData? Data;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Lang.Changed += OnLangChanged;
+        await LoadAsync();
+    }
+
+    private async void OnLangChanged()
+    {
+        await LoadAsync();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private Task LoadAsync() => Task.Run(async () => Data = await Cv.GetAsync(Lang.Current));
+
+    public void Dispose() => Lang.Changed -= OnLangChanged;
+}
